@@ -177,3 +177,10 @@ print(
 # ==========================================
 
 print(f"Your experience level is: {experience_level}")
+
+profile = {
+    "name": "Admin",
+    "career": "Web"
+}
+print (profile["name"])
+print (profile["career"])
