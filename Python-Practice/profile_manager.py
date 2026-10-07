@@ -31,26 +31,36 @@ def save_profile(profile):
 
 
 def load_profile():
-    with open("user_profile.json", "r") as file:
-        profile = json.load(file)
+    try:
+        with open("user_profile.json", "r") as file:
+            profile = json.load(file)
 
-    return profile
+        return profile
+
+    except FileNotFoundError:
+        print("\nNo saved profile found.")
+        return None
 
 
 def edit_profile():
     profile = load_profile()
+
+    if profile is None:
+        return
 
     print("\nEDIT PROFILE")
     print("Press Enter to keep the current value.")
 
     print("\nCurrent name:", profile["name"])
     new_name = input("Enter new name: ")
+
     if new_name != "":
         profile["name"] = new_name
 
     print("\nCurrent career:", profile["career"])
-    new_career = input("Enter new career: ")     
-    if new_career !="":
+    new_career = input("Enter new career: ")
+
+    if new_career != "":
         profile["career"] = new_career
 
     print("\nCurrent experience:", profile["experience"])
@@ -66,8 +76,8 @@ def edit_profile():
         profile["goal"] = new_goal
 
     save_profile(profile)
+
     print("\nPROFILE UPDATED SUCCESSFULLY")
-    
 
 
 def show_menu():
@@ -97,11 +107,12 @@ while True:
     elif choice == "2":
         loaded_profile = load_profile()
 
-        print("\nSAVED PROFILE")
-        print("Name:", loaded_profile["name"])
-        print("Career:", loaded_profile["career"])
-        print("Experience:", loaded_profile["experience"])
-        print("AI Goal:", loaded_profile["goal"])
+        if loaded_profile is not None:
+            print("\nSAVED PROFILE")
+            print("Name:", loaded_profile["name"])
+            print("Career:", loaded_profile["career"])
+            print("Experience:", loaded_profile["experience"])
+            print("AI Goal:", loaded_profile["goal"])
 
     elif choice == "3":
         edit_profile()
