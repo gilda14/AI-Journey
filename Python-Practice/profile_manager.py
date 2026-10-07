@@ -22,34 +22,70 @@ def create_profile():
 
     return profile
 
-def save_profile(profile) :
+
+def save_profile(profile):
     with open("user_profile.json", "w") as file:
         json.dump(profile, file, indent=4)
-        print("profile saved successfully")
+
+    print("Profile saved successfully")
+
 
 def load_profile():
-    with open("user_profile.json","r") as file:
+    with open("user_profile.json", "r") as file:
         profile = json.load(file)
-        return profile
+
+    return profile
+
+
+def edit_profile():
+    profile = load_profile()
+
+    print("\nEDIT PROFILE")
+    print("Press Enter to keep the current value.")
+
+    print("\nCurrent name:", profile["name"])
+    new_name = input("Enter new name: ")
+    if new_name != "":
+        profile["name"] = new_name
+
+    print("\nCurrent career:", profile["career"])
+    new_career = input("Enter new career: ")     
+    if new_career !="":
+        profile["career"] = new_career
+
+    print("\nCurrent experience:", profile["experience"])
+    new_experience = input("Enter new years of experience: ")
+
+    if new_experience != "":
+        profile["experience"] = int(new_experience)
+
+    print("\nCurrent AI goal:", profile["goal"])
+    new_goal = input("Enter new AI goal: ")
+
+    if new_goal != "":
+        profile["goal"] = new_goal
+
+    save_profile(profile)
+    print("\nPROFILE UPDATED SUCCESSFULLY")
+    
+
 
 def show_menu():
     print("\nWhat would you like to do?")
     print("1. Create a new profile")
     print("2. View saved profile")
-    print("3. Exit")
+    print("3. Edit saved profile")
+    print("4. Exit")
 
-    
 
-#start the program 
-
-# start the program
+# Start the program
 
 show_title()
 
 while True:
     show_menu()
 
-    choice = input("Enter your choice (1, 2, or 3): ")
+    choice = input("Enter your choice (1, 2, 3, or 4): ")
 
     if choice == "1":
         user_profile = create_profile()
@@ -68,9 +104,11 @@ while True:
         print("AI Goal:", loaded_profile["goal"])
 
     elif choice == "3":
+        edit_profile()
+
+    elif choice == "4":
         print("Goodbye!")
         break
 
     else:
         print("Invalid choice")
-        
