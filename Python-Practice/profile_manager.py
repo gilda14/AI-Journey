@@ -27,11 +27,50 @@ def save_profile(profile) :
         json.dump(profile, file, indent=4)
         print("profile saved successfully")
 
+def load_profile():
+    with open("user_profile.json","r") as file:
+        profile = json.load(file)
+        return profile
+
+def show_menu():
+    print("\nWhat would you like to do?")
+    print("1. Create a new profile")
+    print("2. View saved profile")
+    print("3. Exit")
+
+    
+
 #start the program 
 
-show_title()
-user_profile = create_profile()
-print("\nPROFILE CREATE")
-print(user_profile)
+# start the program
 
-save_profile(user_profile)
+show_title()
+
+while True:
+    show_menu()
+
+    choice = input("Enter your choice (1, 2, or 3): ")
+
+    if choice == "1":
+        user_profile = create_profile()
+        save_profile(user_profile)
+
+        print("\nPROFILE CREATED")
+        print(user_profile)
+
+    elif choice == "2":
+        loaded_profile = load_profile()
+
+        print("\nSAVED PROFILE")
+        print("Name:", loaded_profile["name"])
+        print("Career:", loaded_profile["career"])
+        print("Experience:", loaded_profile["experience"])
+        print("AI Goal:", loaded_profile["goal"])
+
+    elif choice == "3":
+        print("Goodbye!")
+        break
+
+    else:
+        print("Invalid choice")
+        
